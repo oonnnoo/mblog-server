@@ -1,0 +1,27 @@
+{
+  "name": "mblog-server",
+  "version": "1.0.0",
+  "description": "an API server for mblog create by Express",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "scripts": {
+    "dev": "nodemon server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oonnnoo/mblog-server.git"
+  },
+  "author": "oonnnoo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oonnnoo/mblog-server/issues"
+  },
+  "homepage": "https://github.com/oonnnoo/mblog-server#readme"
+}
