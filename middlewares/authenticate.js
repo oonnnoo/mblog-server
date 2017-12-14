@@ -2,13 +2,11 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
 module.exports = (req, res, next) => {
-  const header = req.headers.authorization
-  let token
-  if (header) {
-    token = header.split(' ')[1]
-  }
+  let token = req.body.token || req.query.token || req.headers['x-access-token']
   if (token) {
-    jwt.verif(token, process.env.JWT_SECRET, (err, decode) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      console.log(decoded)
+      console.log(err)
       if (err) {
         res.status(401).json({
           errors: {

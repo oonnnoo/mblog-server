@@ -15,9 +15,8 @@ router.get('/:_id', function (req, res) {
   })
 })
 
-router.use(authenticate)
 // 新增 /post
-router.post('/', function (req, res) {
+router.post('/', authenticate, function (req, res) {
   let post = req.body
   console.log(post)
   PostModel.create(post, (err, post) => {
@@ -29,7 +28,7 @@ router.post('/', function (req, res) {
 })
 
 // 删除 /post/:postid
-router.delete('/:_id', function (req, res) {
+router.delete('/:_id', authenticate, function (req, res) {
   let id = req.params._id
   PostModel.delete(id, (err, post) => {
     if (err) {
@@ -40,7 +39,7 @@ router.delete('/:_id', function (req, res) {
 })
 
 // 修改 /post/:postid
-router.put('/:_id', function (req, res) {
+router.put('/:_id', authenticate, function (req, res) {
   let id = req.params._id
   let post = req.body
   PostModel.update(id, post, {}, (err, post) => {
@@ -49,7 +48,7 @@ router.put('/:_id', function (req, res) {
     }
     res.send(post)
   })
-  res.send('hello put')
+  res.status(403).send('Sorry, we cannot find that!')
 })
 
 module.exports = router
