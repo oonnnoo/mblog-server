@@ -1,7 +1,21 @@
 const express = require('express')
 const router = express.Router()
 const PostModel = require('../../models/post')
+const authenticate = require('../../middlewares/authenticate')
 
+// 获取 /post/:postid
+router.get('/:_id', function (req, res) {
+  let id = req.params._id
+  PostModel.getPostById(id, (err, post) => {
+    if (err) {
+      res.status(404).send('Sorry, we cannot find that!')
+    } else {
+      res.send(post)
+    }
+  })
+})
+
+router.use(authenticate)
 // 新增 /post
 router.post('/', function (req, res) {
   let post = req.body
@@ -36,18 +50,6 @@ router.put('/:_id', function (req, res) {
     res.send(post)
   })
   res.send('hello put')
-})
-
-// 获取 /post/:postid
-router.get('/:_id', function (req, res) {
-  let id = req.params._id
-  PostModel.getPostById(id, (err, post) => {
-    if (err) {
-      res.status(404).send('Sorry, we cannot find that!')
-    } else {
-      res.send(post)
-    }
-  })
 })
 
 module.exports = router

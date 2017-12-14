@@ -1,13 +1,16 @@
 const express = require('express')
 const route = require('./router/api/index')
 const bodyParser = require('body-parser')
+const dotenv = require('dotenv')
+// const Promise = require('bluebird')
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
 const app = express()
 
-app.use(bodyParser.urlencoded({extended: false}))
-
+dotenv.config()
+// app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 app.get('/', function (req, res) {
   res.send('hello')
 })
@@ -16,7 +19,7 @@ route(app)
 
 // hendle 404 error
 app.use((req, res, next) => {
-  const error = new Error('Not Found');
+  const error = new Error('Not Found')
   error.status = 404
   next(error)
 })

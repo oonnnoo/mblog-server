@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 
-mongoose.connect('mongodb://localhost/blog')
+dotenv.config()
+mongoose.Promise = Promise
+mongoose.connect(process.env.MONGODB_URL, {
+  useMongoClient: true
+})
 const db = mongoose.connection
 
 const postSchema = mongoose.Schema({
